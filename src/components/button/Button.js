@@ -1,6 +1,7 @@
 import React , {Component} from 'react';
 
 import './Button.css';
+import '../chart/leaderboard-chart';
 
 class Button extends Component {
 
