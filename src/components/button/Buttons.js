@@ -1,9 +1,11 @@
 import React , {Component} from 'react';
 
-import './Button.css';
-import '../chart/leaderboard-chart';
+import { Button } from 'antd';
+import 'antd/dist/antd.css';
 
-class Button extends Component {
+import './Button.css';
+
+class Buttons extends Component {
 
     constructor(props) {
         super(props);
@@ -16,12 +18,14 @@ class Button extends Component {
 
       render(){
           return (
-                <div>
-                <button className="authenticate" onClick = {() => 
+                <div className="buttons">
+                <Button type ="primary" className="authenticate" onClick = {() => 
                 fetch("https://dscinfo.herokuapp.com/oauth",{
-                    mode:'no-cors',
+                    // mode:'no-cors',
                     headers: {
-                        "Access-Control-Allow-Origin": "*"
+                        "Access-Control-Allow-Origin": "*",
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
                     } 
                 }
                 )
@@ -40,11 +44,15 @@ class Button extends Component {
                     }
                 ) }>
                     Authenticate
-                </button>
+                </Button>
 
-                <button className="load" onClick = {() =>
+                <Button type ="primary" className="load" onClick = {() =>
                     fetch("http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT",{
                     method:"get",
+                    headers : { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                       },                
                     credentials:"include",
                     mode:"cors"
                     })
@@ -59,11 +67,11 @@ class Button extends Component {
                         }
                     ) }>Load leaderboard
                     
-                </button>
+                </Button>
             </div>
           )
       }
 
 }
 
-export default Button;
+export default Buttons;
