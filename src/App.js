@@ -9,7 +9,7 @@ import 'antd/dist/antd.css';
 import Dashboard from './Dashboard'
 
 const CLIENT_ID =  "Iv1.5552b1340c6af2eb";
-const REDIRECT_URI = "http://localhost:3000/dashboard";
+const REDIRECT_URI = "https://github-dashboard-org.netlify.com/dashboard";
 export default class App extends Component {
 
   state = {
@@ -46,13 +46,13 @@ export default class App extends Component {
             <Route path='/dashboard' component={Dashboard} />
 
             <Route path='/' render={() => (
-                    <div>
-                <Button type ="primary" className="authenticate">
-                    <a style={{display: this.state.status === null ? "inline" : "none"}}
-                    href = {`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user&redirect_uri=${REDIRECT_URI}`}>
-                       Authenticate 
-                    </a>
-                </Button>
+                    <div className="button">
+                      <Button type ="primary" className="authenticate">
+                          <a style={{display: this.state.status === null ? "inline" : "none"}}
+                          href = {`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user&redirect_uri=${REDIRECT_URI}`}>
+                            Authenticate 
+                          </a>
+                      </Button>
                   </div>
             )} />
           </Switch>

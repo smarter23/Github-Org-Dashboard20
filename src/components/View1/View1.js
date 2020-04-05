@@ -3,37 +3,32 @@ import ReactDOM from 'react-dom';
 import { VictoryBar , VictoryChart, VictoryPolarAxis,
     VictoryTheme } from 'victory';
 
-    
+import './View1.css';
+
 class View1 extends React.Component{
     render(){
         return(
+
+          <div>
+            <h1 style={{textAlign:"center"}} > Organisation Leaderboard</h1>
             <VictoryChart polar
             theme={VictoryTheme.material}
             // domainPadding={20}
-            height={200}
+            height={150}
           >
             <VictoryPolarAxis dependentAxis
                 labelPlacement="perpendicular"
-                style={{ axis: { stroke: "none" } , tickLabel:{fontSize: "3px"} }}
+                style={{ axis: { stroke: "none" } }}
                 tickFormat={() => null}
             />
             <VictoryPolarAxis/>
-            {/* <VictoryAxis
-              width={200}
-              height={200}
-            //   tickValues={[1, 2, 3, 4]}
-            //   tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
-            />
-            <VictoryAxis
-              dependentAxis
-            /> */}
             <VictoryBar
-              height={200}
+              height={150}
               animate={{
                 duration: 2000,
                 onLoad: { duration: 1000 }
               }}              
-              style={{ data: { fill: "#c43a31",stroke: "black", strokeWidth: 0 } }}
+              style={{ data: { fill: "#c8a2c8",stroke: "black", strokeWidth: 0 } }}
               data={[
                 {user: "L04DB4L4NC3R", contrib: 82},
                 {user: "Angad Sharma", contrib: 16816},
@@ -48,6 +43,7 @@ class View1 extends React.Component{
               y="contrib"
             />
           </VictoryChart>
+          </div>
         )
     }
 }
