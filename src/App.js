@@ -10,18 +10,24 @@ import Dashboard from './Dashboard'
 
 const CLIENT_ID =  "Iv1.5552b1340c6af2eb";
 const REDIRECT_URI = "https://github-dashboard-org.netlify.com/dashboard";
-export default class App extends Component {
+// const REDIRECT_URI = "http://localhost:3000/dashboard";
 
-  state = {
-    status: null,
-    token: null
-  }
+
+export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state ={
+      token:null
+    }
+}
   
   componentDidMount() {
-    const code =
-      window.location.href.match('/?code=(.*)/') &&
-      window.location.href.match('/?code=(.*)/')[1];
-    console.log(code);
+    // console.log(this.props);
+    // const code =
+    //   window.location.href.match('/?code=(.*)/') &&
+    //   window.location.href.match('/?code=(.*)/')[1];
+    // console.log(code);
+    // console.log("in")
 
     // if (code) {
     //   this.setState({ status: "loading" });
@@ -48,7 +54,7 @@ export default class App extends Component {
             <Route path='/' render={() => (
                     <div className="button">
                       <Button type ="primary" className="authenticate">
-                          <a style={{display: this.state.status === null ? "inline" : "none"}}
+                          <a 
                           href = {`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=user&redirect_uri=${REDIRECT_URI}`}>
                             Authenticate 
                           </a>

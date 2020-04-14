@@ -5,7 +5,23 @@ import { VictoryBar , VictoryChart, VictoryPolarAxis,
 
 import './View1.css';
 
+
+
 class View1 extends React.Component{
+  componentDidMount(){
+    fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
+      method:"GET",
+      headers: new Headers({
+        'Authorizaton' : localStorage.getItem('code')
+      })
+    })
+    .then(res => {
+      console.log(res)
+      return res.json()
+    })
+    .then(resp => console.log(resp))
+    .catch(err => console.log(err))
+  }
     render(){
         return(
 

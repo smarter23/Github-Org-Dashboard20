@@ -14,7 +14,22 @@ const { TabPane } = Tabs;
 function callback(key) {
   console.log(key);
 }
+
 class Dashboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state ={
+      token:null
+    }
+}
+  componentDidMount(){
+    console.log(this.props.location.search);
+    const params = new URLSearchParams(this.props.location.search);
+    params.get('code');
+    let code = params.get('code');
+    // console.log(code)
+    window.localStorage.setItem("code",code)
+  }
     render(){
         return (
           <div>
