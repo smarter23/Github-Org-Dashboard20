@@ -27,7 +27,7 @@ class Dashboard extends Component {
     const params = new URLSearchParams(this.props.location.search);
     params.get('code');
     let code = params.get('code');
-    // console.log(code)
+    console.log(code)
     window.localStorage.setItem("code",code)
   }
     render(){
