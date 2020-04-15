@@ -29,6 +29,19 @@ class Dashboard extends Component {
     let code = params.get('code');
     console.log(code)
     window.localStorage.setItem("code",code)
+
+    fetch('http://dscinfo.herokuapp.com/exchange',{
+      method:'GET',
+      headers: new Headers({
+        'Authorizaton' : localStorage.getItem('code')
+      })
+    })
+      .then(res => {
+        console.log(res)
+        return res.json()
+      })
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err))
   }
     render(){
         return (
