@@ -30,7 +30,7 @@ class Dashboard extends Component {
     console.log(code)
     window.localStorage.setItem("code",code)
 
-    fetch('http://dscinfo.herokuapp.com/exchange',{
+    fetch('https://dscinfo.herokuapp.com/exchange',{
       method:'GET',
       headers: new Headers({
         'Authorization' : localStorage.getItem('code')
@@ -42,7 +42,7 @@ class Dashboard extends Component {
       })
       .then(resp => {
         console.log(resp)
-        
+
       })
       .catch(err => console.log(err))
   }
