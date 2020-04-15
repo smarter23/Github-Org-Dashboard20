@@ -33,14 +33,17 @@ class Dashboard extends Component {
     fetch('http://dscinfo.herokuapp.com/exchange',{
       method:'GET',
       headers: new Headers({
-        'Authorizaton' : localStorage.getItem('code')
+        'Authorization' : localStorage.getItem('code')
       })
     })
       .then(res => {
         console.log(res)
         return res.json()
       })
-      .then(resp => console.log(resp))
+      .then(resp => {
+        console.log(resp)
+        
+      })
       .catch(err => console.log(err))
   }
     render(){

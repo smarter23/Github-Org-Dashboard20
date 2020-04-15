@@ -12,7 +12,7 @@ class View1 extends React.Component{
     fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
       method:"GET",
       headers: new Headers({
-        'Authorizaton' : localStorage.getItem('code')
+        'Authorization' : localStorage.getItem('code')
       })
     })
     .then(res => {
