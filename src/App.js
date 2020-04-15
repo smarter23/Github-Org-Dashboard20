@@ -9,8 +9,8 @@ import 'antd/dist/antd.css';
 import Dashboard from './Dashboard'
 
 const CLIENT_ID =  "Iv1.5552b1340c6af2eb";
-// const REDIRECT_URI = "https://github-dashboard-org.netlify.com/dashboard";
-const REDIRECT_URI = "http://localhost:3000/dashboard";
+const REDIRECT_URI = "https://github-dashboard-org.netlify.com/dashboard";
+// const REDIRECT_URI = "http://localhost:3000/dashboard";
 
 
 export default class App extends Component {
