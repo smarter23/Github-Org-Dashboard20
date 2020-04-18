@@ -12,7 +12,21 @@ import Organisations from './components/Organisations';
 const { TabPane } = Tabs;
 
 function callback(key) {
-  console.log(key);
+  console.log(key)
+  if( key == 1){
+    // fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
+    //   method:"GET",
+    //   headers: new Headers({
+    //     'Authorization' :  localStorage.getItem('access_token')
+    //   })
+    // })
+    // .then(res => {
+    //   console.log(res)
+    //   return res.json()
+    // })
+    // .then(resp => console.log(resp))
+    // .catch(err => console.log(err))
+  }
 }
 
 class Dashboard extends Component {
@@ -30,6 +44,7 @@ class Dashboard extends Component {
     console.log(code)
     window.localStorage.setItem("code",code)
 
+    if(!localStorage.getItem('access_token')){
     fetch('https://dscinfo.herokuapp.com/exchange',{
       method:'GET',
       headers: new Headers({
@@ -42,11 +57,13 @@ class Dashboard extends Component {
       })
       .then(resp => {
         console.log(resp)
-
+        window.localStorage.setItem("access_token", resp.access_token);
       })
       .catch(err => console.log(err))
+    }
   }
     render(){
+      const token = localStorage.getItem('access_token');
         return (
           <div>
             <Layout style ={{ height: 720 }}>
@@ -60,7 +77,7 @@ class Dashboard extends Component {
               <Content>
               <Tabs defaultActiveKey="1" onChange={callback}>
                 <TabPane tab="View 1" key="1">
-                  <View1 />
+                  <View1 token = {token}/>
                 </TabPane>
                 <TabPane tab="View 2" key="2">
                   <View2 />

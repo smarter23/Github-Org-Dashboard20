@@ -8,20 +8,33 @@ import './View1.css';
 
 
 class View1 extends React.Component{
-  componentDidMount(){
-    fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
-      method:"GET",
-      headers: new Headers({
-        'Authorization' : localStorage.getItem('code')
-      })
-    })
-    .then(res => {
-      console.log(res)
-      return res.json()
-    })
-    .then(resp => console.log(resp))
-    .catch(err => console.log(err))
+  constructor(props){
+    super(props);
+    this.state = {
+      'access_token' : localStorage.getItem('access_token')
+    }
   }
+  
+  componentDidMount(){
+    console.log('hi')
+    console.log(this.props);
+    console.log(this.state);
+    if(localStorage.getItem('access_token')){
+      fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
+        method:"GET",
+        headers: new Headers({
+          'Authorization' :  this.props.token
+        })
+      })
+      .then(res => {
+        console.log(res)
+        return res.json()
+      })
+      .then(resp => console.log(resp))
+      .catch(err => console.log(err))
+    }
+  }
+
     render(){
         return(
 
