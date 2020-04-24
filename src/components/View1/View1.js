@@ -33,6 +33,19 @@ class View1 extends React.Component{
       .then(resp => console.log(resp))
       .catch(err => console.log(err))
     }
+
+    fetch('http://dscinfo.herokuapp.com/orgs',{
+      method:"GET",
+      headers: new Headers({
+        'Authorization' :  this.props.token
+      })
+    })
+    .then(res => {
+      console.log(res)
+      return res.json()
+    })
+    .then(resp => console.log(resp))
+    .catch(err => console.log(err))
   }
 
     render(){

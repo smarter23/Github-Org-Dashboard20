@@ -3,12 +3,53 @@
 }
 
 .authenticate{
-  background-color: purple !important;
-  border-color: purple !important;
+  background-color: #ff5a5f !important;
+  border-color: #ff5a5f !important;
 }
 .button{
   position: absolute;
-  top: 50%;
   left: 50%;
+  margin-top: 40px;
   transform: translate(-50%,-50%);
+}
+
+.background{
+  background-image: url(./images/bg.png);
+  background-repeat:no-repeat;
+  margin:0;
+  padding:0;
+  height: 100vh;
+  width: auto;
+}
+
+.landing-data{
+  position: absolute;
+  top: 40%;
+  left: 37%;
+  width: 30vw;
+  height: 30vh;
+  background-color: #f5f5f5;
+  border-radius: 15px;
+}
+
+.background-content{
+  background-color: #f5f5f5;
+  color: black;
+  margin-top: 12vh;
+}
+
+.background-title{
+  background-color: #3c3c3c;
+  color: #f5f5f5;
+  position: absolute;
+  display: block;
+  padding: 10px;
+  margin-left: 15%;
+  top: -20px;
+  border-radius: 15px;
+}
+
+.background-title h1{
+  color: #f5f5f5;
+  margin: 0;
 }

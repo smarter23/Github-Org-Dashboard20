@@ -61,6 +61,10 @@ class Dashboard extends Component {
       })
       .catch(err => console.log(err))
     }
+
+    if(localStorage.getItem('access_token')){
+
+  }
   }
     render(){
       const token = localStorage.getItem('access_token');

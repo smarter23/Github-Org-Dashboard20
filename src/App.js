@@ -7,10 +7,9 @@ import { Button } from 'antd';
 import 'antd/dist/antd.css';
 // import Button from './components/button/Buttons';
 import Dashboard from './Dashboard'
+import Landing from './Landing'
 
-const CLIENT_ID =  "Iv1.5552b1340c6af2eb";
-// const REDIRECT_URI = "https://github-dashboard-org.netlify.com/dashboard";
-const REDIRECT_URI = "http://localhost:3000/dashboard";
+
 
 
 export default class App extends Component {
@@ -51,16 +50,7 @@ export default class App extends Component {
           <Switch>
             <Route path='/dashboard' component={Dashboard} />
 
-            <Route path='/' render={() => (
-                    <div className="button">
-                      <Button type ="primary" className="authenticate">
-                          <a 
-                          href = {`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=read:repo%20read:user%20read:org&redirect_uri=${REDIRECT_URI}`}>
-                            Authenticate 
-                          </a>
-                      </Button>
-                  </div>
-            )} />
+            <Route path='/' component={Landing} />
           </Switch>
         </div>
       </BrowserRouter>
