@@ -20,7 +20,7 @@ class View1 extends React.Component{
     console.log(this.props);
     console.log(this.state);
     if(localStorage.getItem('access_token')){
-      fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
+      fetch('http://dscinfo.herokuapp.com/repos?org=GDGVIT',{
         method:"GET",
         headers: new Headers({
           'Authorization' :  this.props.token
