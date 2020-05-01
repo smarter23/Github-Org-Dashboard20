@@ -28,7 +28,7 @@ class Landing extends Component {
                     <div className="button">
                         <Button type ="primary" className="authenticate">
                             <a 
-                            href = {`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=read:user%20repo%20read:org&redirect_uri=${REDIRECT_URI}`}>
+                            href = {`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=read:user%20read:repo%20read:org&redirect_uri=${REDIRECT_URI}`}>
                             Authenticate 
                             </a>
                         </Button>
