@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Card } from 'antd';
 import { VictoryBar ,VictoryArea, VictoryChart, VictoryPolarAxis,
     VictoryTheme,VictoryStack } from 'victory';
 
@@ -8,6 +9,7 @@ import { VictoryBar ,VictoryArea, VictoryChart, VictoryPolarAxis,
 class View1 extends React.Component{
     render(){
         return(
+          <Card style={{width:400, margin :20}}>
             <div>
               <h1 style={{textAlign:"center"}}>Repo-vise contributions </h1>
 
@@ -30,6 +32,7 @@ class View1 extends React.Component{
                 </VictoryStack>
               </VictoryChart>
             </div>
+            </Card>
         )
     }
 }

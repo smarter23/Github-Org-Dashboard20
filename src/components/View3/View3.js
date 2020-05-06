@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { VictoryBoxPlot , VictoryChart, VictoryPolarAxis,
     VictoryTheme ,VictoryLegend, VictoryScatter,VictoryContainer} from 'victory';
+import { Card } from 'antd';
+
 
 class View1 extends React.Component{
     render(){
         return(
+            <Card style={{width:700, margin :20}}>
             <div>
               <h1 style={{textAlign:"center"}}>Top Contributors</h1>
 
@@ -46,6 +49,7 @@ class View1 extends React.Component{
                     ]}
                 />
             </div>
+            </Card>
         )
     }
 }

@@ -21,25 +21,6 @@ export default class App extends Component {
 }
   
   componentDidMount() {
-    // console.log(this.props);
-    // const code =
-    //   window.location.href.match('/?code=(.*)/') &&
-    //   window.location.href.match('/?code=(.*)/')[1];
-    // console.log(code);
-    // console.log("in")
-
-    // if (code) {
-    //   this.setState({ status: "loading" });
-    //   fetch(`https://gitstar.herokuapp.com/authenticate/${code}`)
-    //     .then(response => response.json())
-    //     .then(({ token }) => {
-    //       this.setState({
-    //         token,
-    //         // status: STATUS.FINISHED_LOADING
-    //       });
-    //     });
-    // }
-
   }
 
   render() {
@@ -59,4 +40,4 @@ export default class App extends Component {
   }
 }
 
-// export default App;
+

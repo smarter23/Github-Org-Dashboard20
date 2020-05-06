@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
-import { Layout } from 'antd';
+import { Layout,Menu } from 'antd';
 const { Header, Footer, Sider, Content } = Layout;
 import { Tabs } from 'antd';
 
@@ -33,7 +33,8 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state ={
-      token:null
+      token:null,
+      orgs: ''
     }
 }
   componentDidMount(){
@@ -62,37 +63,60 @@ class Dashboard extends Component {
       .catch(err => console.log(err))
     }
 
-    if(localStorage.getItem('access_token')){
 
-  }
+  fetch('http://dscinfo.herokuapp.com/orgs',{
+    method:"GET",
+    headers: new Headers({
+      'Authorization' :  localStorage.getItem('access_token')
+    })
+  })
+  .then(res => {
+    console.log(res)
+    return res.json()
+  })
+  .then(resp => {
+    console.log(resp)
+    this.setState({
+      orgs: resp.payload.data.viewer.organizations.nodes
+    })
+    console.log(this.state)
+  })
+  .catch(err => console.log(err))
   }
     render(){
       const token = localStorage.getItem('access_token');
+      const {orgs} = this.state
+      console.log(orgs)
+      const menu = orgs.length ? (
+        orgs.map(
+          li => {
+            return(
+              <Menu.Item key="1">
+                  {li.name}
+              </Menu.Item>
+            )
+          }
+        )
+      ) : (
+        <div></div>
+      )
         return (
           <div>
-            <Layout style ={{ height: 720 }}>
-            <Header style = {{ position: "sticky", top: "0", height:50, backgroundColor:"#010059" }}>           
-
+            <Layout>
+            <Header style = {{ position: "sticky", top: "0", height:64, backgroundColor:"#3c3c3c",zIndex:1 }}>           
+              <Menu mode="horizontal" style = {{backgroundColor:"#3c3c3c", height:64}}>
+                <Menu.Item style={{display: 'none'}} />
+                {menu}
+              </Menu>
             </Header>
             <Layout>
-              <Sider style={{width: 100, backgroundColor:"#52437b"}}>
-                  {/* <Organisations /> */}
-              </Sider>
-              <Content>
-              <Tabs defaultActiveKey="1" onChange={callback}>
-                <TabPane tab="View 1" key="1">
+              <Content style={{ padding: '50px' }}>
                   <View1 token = {token}/>
-                </TabPane>
-                <TabPane tab="View 2" key="2">
-                  <View2 />
-                </TabPane>
-                <TabPane tab="View 3" key="3">
-                  <View3 />
-                </TabPane>
-              </Tabs>
+                  <View2 token = {token}/>
+                  <View3 token = {token}/>
               </Content>
             </Layout>
-            <Footer style={{ position: "sticky", bottom: "0", height:50 }} >Made with  &hearts; by DSC-VIT</Footer>
+
           </Layout>
 
           </div>

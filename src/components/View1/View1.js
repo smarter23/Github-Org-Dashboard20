@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { VictoryBar , VictoryChart, VictoryPolarAxis,
     VictoryTheme } from 'victory';
-
+import { Card } from 'antd';
 import './View1.css';
+import ScrollNumber from 'antd/lib/badge/ScrollNumber';
 
 
 
@@ -11,16 +12,17 @@ class View1 extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      'access_token' : localStorage.getItem('access_token')
+      access_token: localStorage.getItem('access_token'),
+      leaderboard: []
+
     }
   }
   
   componentDidMount(){
-    console.log('hi')
     console.log(this.props);
     console.log(this.state);
     if(localStorage.getItem('access_token')){
-      fetch('http://dscinfo.herokuapp.com/repos?org=GDGVIT',{
+      fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
         method:"GET",
         headers: new Headers({
           'Authorization' :  this.props.token
@@ -30,27 +32,21 @@ class View1 extends React.Component{
         console.log(res)
         return res.json()
       })
-      .then(resp => console.log(resp))
+      .then(resp => {
+        console.log(resp)
+        this.setState({
+          leaderboard : resp.payload
+        })
+        console.log(this.state.leaderboard)
+      })
       .catch(err => console.log(err))
     }
 
-    fetch('http://dscinfo.herokuapp.com/orgs',{
-      method:"GET",
-      headers: new Headers({
-        'Authorization' :  this.props.token
-      })
-    })
-    .then(res => {
-      console.log(res)
-      return res.json()
-    })
-    .then(resp => console.log(resp))
-    .catch(err => console.log(err))
   }
 
     render(){
         return(
-
+          <Card style={{width:500, margin :20}}>
           <div>
             <h1 style={{textAlign:"center"}} > Organisation Leaderboard</h1>
             <VictoryChart polar
@@ -70,22 +66,16 @@ class View1 extends React.Component{
                 duration: 2000,
                 onLoad: { duration: 1000 }
               }}              
-              style={{ data: { fill: "#c8a2c8",stroke: "black", strokeWidth: 0 } }}
-              data={[
-                {user: "L04DB4L4NC3R", contrib: 82},
-                {user: "Angad Sharma", contrib: 16816},
-                {user: "bhaveshgoyal27", contrib: 19},
-                {user: "dependabot-preview[bot]" , contrib: 3743},
-                {user: "shashu421" , contrib : 2150},
-                {user: "HRITISHA", contrib: 1105},
-                {user: "alan478", contrib: 8805},
-                {user: "Krishn157", contrib: 930}
-            ]}
-              x="user"
-              y="contrib"
+              style={{ data: { fill: "#087e8b",stroke: "black", strokeWidth: 0 } }}
+              data={
+                this.state.leaderboard.forEach(data => {
+                  return {x:data.name , y:data.score}
+                })
+            }
             />
           </VictoryChart>
           </div>
+          </Card>
         )
     }
 }
