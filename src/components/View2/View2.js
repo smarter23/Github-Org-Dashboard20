@@ -6,7 +6,42 @@ import { VictoryBar ,VictoryArea, VictoryChart, VictoryPolarAxis,
 
 // import './View1.css';
 
-class View1 extends React.Component{
+class View2 extends React.Component{
+
+  constructor(props){
+    super(props);
+    this.state = {
+      access_token: localStorage.getItem('access_token'),
+      repodata: []
+
+    }
+  }
+
+  componentDidMount(){
+    console.log(this.props);
+    if(localStorage.getItem('access_token')){
+      fetch('http://dscinfo.herokuapp.com/repos?org=GDGVIT',{
+        method:"GET",
+        headers: new Headers({
+          'Authorization' :  this.props.token
+        })
+      })
+      .then(res => {
+        console.log(res)
+        return res.json()
+      })
+      .then(resp => {
+        console.log(resp)
+        this.setState({
+          repodata : resp.payload
+        })
+        console.log(this.state.repodata)
+        
+      })
+      .catch(err => console.log(err))
+    }
+
+  }
     render(){
         return(
           <Card style={{width:400, margin :20}}>
@@ -37,4 +72,4 @@ class View1 extends React.Component{
     }
 }
 
-export default View1;
+export default View2;

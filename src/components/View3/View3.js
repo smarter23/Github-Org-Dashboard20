@@ -5,7 +5,41 @@ import { VictoryBoxPlot , VictoryChart, VictoryPolarAxis,
 import { Card } from 'antd';
 
 
-class View1 extends React.Component{
+class View3 extends React.Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+          access_token: localStorage.getItem('access_token'),
+          topcontributors: []
+    
+        }
+      }
+    
+      componentDidMount(){
+        console.log(this.props);
+        if(localStorage.getItem('access_token')){
+          fetch('http://dscinfo.herokuapp.com/topcontributors?org=GDGVIT',{
+            method:"GET",
+            headers: new Headers({
+              'Authorization' :  this.props.token
+            })
+          })
+          .then(res => {
+            console.log(res)
+            return res.json()
+          })
+          .then(resp => {
+            console.log(resp)
+            this.setState({
+              topcontributors : resp.payload
+            })
+            console.log(this.state.topcontributors)
+          })
+          .catch(err => console.log(err))
+        }
+    
+      }
     render(){
         return(
             <Card style={{width:700, margin :20}}>
@@ -54,4 +88,4 @@ class View1 extends React.Component{
     }
 }
 
-export default View1;
+export default View3;

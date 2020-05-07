@@ -20,7 +20,6 @@ class View1 extends React.Component{
   
   componentDidMount(){
     console.log(this.props);
-    console.log(this.state);
     if(localStorage.getItem('access_token')){
       fetch('http://dscinfo.herokuapp.com/leaderboard?org=GDGVIT',{
         method:"GET",
@@ -46,7 +45,7 @@ class View1 extends React.Component{
 
     render(){
         return(
-          <Card style={{width:500, margin :20}}>
+          <Card style={{width:600, margin :20}}>
           <div>
             <h1 style={{textAlign:"center"}} > Organisation Leaderboard</h1>
             <VictoryChart polar

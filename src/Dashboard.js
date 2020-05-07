@@ -91,7 +91,7 @@ class Dashboard extends Component {
         orgs.map(
           li => {
             return(
-              <Menu.Item key="1">
+              <Menu.Item key="1"  className = "orgs-title">
                   {li.name}
               </Menu.Item>
             )
