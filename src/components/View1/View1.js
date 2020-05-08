@@ -45,32 +45,38 @@ class View1 extends React.Component{
 
     render(){
         return(
-          <Card style={{width:600, margin :20}}>
+          <Card style={{width:1000, margin :20}}>
           <div>
             <h1 style={{textAlign:"center"}} > Organisation Leaderboard</h1>
-            <VictoryChart polar
+            <VictoryChart 
             theme={VictoryTheme.material}
-            // domainPadding={20}
+            domainPadding={{x:15}}
             height={150}
+            padding ={{top:20,bottom:40, left:40, right:60}}
+            
           >
-            <VictoryPolarAxis dependentAxis
+            {/* <VictoryPolarAxis dependentAxis
                 labelPlacement="perpendicular"
                 style={{ axis: { stroke: "none" } }}
                 tickFormat={() => null}
-            />
-            <VictoryPolarAxis/>
+            /> */}
+            {/* <VictoryPolarAxis/> */}
             <VictoryBar
               height={150}
+              scale={{x: "linear", y: "sqrt"}}
+              barRatio={0.8}
+              // labels={({ datum }) => datum.x}
               animate={{
                 duration: 2000,
                 onLoad: { duration: 1000 }
               }}              
-              style={{ data: { fill: "#087e8b",stroke: "black", strokeWidth: 0 } }}
+              style={{ data: { fill: ({ index }) => index%2 === 0  ? "#087e8b" : "#c1839f",stroke: "black", strokeWidth: 0 }, labels: { fill: "white" } }}
               data={
-                this.state.leaderboard.forEach(data => {
+                this.state.leaderboard.map(data => {
                   return {x:data.name , y:data.score}
                 })
             }
+
             />
           </VictoryChart>
           </div>

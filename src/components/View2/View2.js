@@ -1,10 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Card } from 'antd';
+import { Select } from 'antd';
 import { VictoryBar ,VictoryArea, VictoryChart, VictoryPolarAxis,
     VictoryTheme,VictoryStack } from 'victory';
 
 // import './View1.css';
+
+const { Option } = Select;
+
+
 
 class View2 extends React.Component{
 
@@ -42,13 +47,61 @@ class View2 extends React.Component{
     }
 
   }
+
+ onChange = (value) => {
+    console.log(`selected ${value}`);
+  }
+  
+  onBlur = () => {
+    console.log('blur');
+  }
+  
+  onFocus = () => {
+    console.log('focus');
+  }
+  
+  onSearch = (val) => {
+    console.log('search:', val);
+  }
     render(){
+
+      const {repodata} = this.state;
+      console.log(repodata);
+      const options = repodata.length ? (
+        repodata.map(
+          op => {
+            return (
+              <Option value={op.name} key={op.name}>{op.name}</Option>
+            )
+          }
+        )
+      ) :(
+        <div><Option value="loading" key="loading"> Loading </Option></div>
+      )
         return(
-          <Card style={{width:400, margin :20}}>
+          <Card style={{width:700, margin :20}}>
             <div>
               <h1 style={{textAlign:"center"}}>Repo-vise contributions </h1>
 
-              <p style={{fontFamily: "monospace"}}>GDGVIT_template</p>
+              
+
+              <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select a repository"
+                optionFilterProp="children"
+                onChange={this.onChange}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                onSearch={this.onSearch}
+                filterOption={(input, option) =>
+                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+                >
+                  <Option value="jack">Jack</Option>
+                  <Option value="lucy">Lucy</Option>
+                  <Option value="tom">Tom</Option>
+              </Select>
 
               <VictoryChart
                 theme={VictoryTheme.material}
