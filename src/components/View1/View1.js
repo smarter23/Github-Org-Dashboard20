@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { VictoryBar , VictoryChart, VictoryPolarAxis,
     VictoryTheme } from 'victory';
-import { Card } from 'antd';
+import { Card,Row,Col } from 'antd';
 import './View1.css';
 import ScrollNumber from 'antd/lib/badge/ScrollNumber';
 
@@ -45,7 +45,9 @@ class View1 extends React.Component{
 
     render(){
         return(
-          <Card style={{width:1000, margin :20}}>
+          <Row>
+            <Col span = {16}>
+            <Card style={{margin :20}}>
           <div>
             <h1 style={{textAlign:"center"}} > Organisation Leaderboard</h1>
             <VictoryChart 
@@ -81,7 +83,10 @@ class View1 extends React.Component{
           </VictoryChart>
           </div>
           </Card>
-        )
+
+            </Col>
+          </Row>
+     )
     }
 }
 

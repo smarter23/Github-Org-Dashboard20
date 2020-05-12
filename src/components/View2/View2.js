@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Card } from 'antd';
+import { Card,Row,Col } from 'antd';
 import { Select } from 'antd';
 import { VictoryBar ,VictoryArea, VictoryChart, VictoryPolarAxis,
     VictoryTheme,VictoryStack } from 'victory';
@@ -44,8 +44,22 @@ class View2 extends React.Component{
         
       })
       .catch(err => console.log(err))
+      
+      fetch('http://dscinfo.herokuapp.com/json/analyze?org=GDGVIT&repo=project-ideas-v2-frontend',{
+        method:"GET",
+        headers: new Headers({
+          'Authorization' :  this.props.token
+        })
+      })
+      .then(res => {
+        console.log(res)
+        return res.json()
+      })
+      .then(resp => {
+        console.log(resp)
+      })
+      .catch(err => console.log(err))
     }
-
   }
 
  onChange = (value) => {
@@ -67,41 +81,50 @@ class View2 extends React.Component{
 
       const {repodata} = this.state;
       console.log(repodata);
-      const options = repodata.length ? (
+      var options = repodata.length ? (
         repodata.map(
           op => {
+            op = JSON.stringify(op)
+            // console.log(op)
             return (
               <Option value={op.name} key={op.name}>{op.name}</Option>
             )
+            
           }
         )
       ) :(
         <div><Option value="loading" key="loading"> Loading </Option></div>
       )
+      // console.log(options)
+      const selectrepos =    
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a repository"
+            optionFilterProp="children"
+            onChange={this.onChange}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onSearch={this.onSearch}
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+            >
+        <Option value="jack">Jack</Option>
+        <Option value="lucy">Lucy</Option>
+        <Option value="tom">Tom</Option>
+        {/* {options} */}
+    </Select>
         return(
-          <Card style={{width:700, margin :20}}>
+          <Row>
+            <Col span={20}>
+            <Card style={{ margin :20}}>
             <div>
               <h1 style={{textAlign:"center"}}>Repo-vise contributions </h1>
 
               
 
-              <Select
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select a repository"
-                optionFilterProp="children"
-                onChange={this.onChange}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onSearch={this.onSearch}
-                filterOption={(input, option) =>
-                  option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                }
-                >
-                  <Option value="jack">Jack</Option>
-                  <Option value="lucy">Lucy</Option>
-                  <Option value="tom">Tom</Option>
-              </Select>
+            {selectrepos}
 
               <VictoryChart
                 theme={VictoryTheme.material}
@@ -121,7 +144,10 @@ class View2 extends React.Component{
               </VictoryChart>
             </div>
             </Card>
-        )
+
+            </Col>
+          </Row>
+                  )
     }
 }
 
