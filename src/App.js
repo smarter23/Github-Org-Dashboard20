@@ -8,6 +8,7 @@ import 'antd/dist/antd.css';
 // import Button from './components/button/Buttons';
 import Dashboard from './Dashboard'
 import Landing from './Landing'
+import Test from './Test'
 
 
 
@@ -30,7 +31,7 @@ export default class App extends Component {
       <div className="App">
           <Switch>
             <Route path='/dashboard' component={Dashboard} />
-
+            <Route path='/test' component={Test} />
             <Route path='/' component={Landing} />
           </Switch>
         </div>

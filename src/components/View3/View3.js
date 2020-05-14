@@ -1,11 +1,24 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { VictoryBoxPlot , VictoryChart, VictoryPolarAxis,
-    VictoryTheme ,VictoryLegend, VictoryScatter,VictoryContainer, VictoryStack, VictoryBar, VictoryGroup,VictoryArea} from 'victory';
+import React, { PureComponent } from 'react';
+import {
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
+} from 'recharts';
 import { Card,Row,Col } from 'antd';
 
-
-class View3 extends React.Component{
+const CustomTooltip = ({ active, payload, label }) => {
+    console.log(payload)
+    if (active) {
+      return (
+        <div className="custom-tooltip">
+          {/* <p className="label">{`${label} : ${payload[0].value}`}</p> */}
+          {/* <p className="intro">{getIntroOfPage(label)}</p> */}
+          <p className="desc">Anything you want can be displayed here.</p>
+        </div>
+      );
+    }
+  
+    return null;
+  };
+class View3 extends PureComponent{
 
     constructor(props){
         super(props);
@@ -42,62 +55,32 @@ class View3 extends React.Component{
       }
     render(){
 
-    //   let y = {}
-    //   this.state.topcontributors.map( el => {
-    //     if (y[el.top_contributor] === undefined || y[el.top_contributor] === 0) {
-    //     y[el.top_contributor] = 1
-    //   } else {
-    //     y[el.top_contributor] = y[el.top_contributor] + 1
-    //   }
-    // })
-    // console.log(y)
+      let y = []
+      this.state.topcontributors.map( el => {
+          console.log(el)
+        if (y[el.score] === undefined || y[el.score] === 0) {
+        // y[el.top_contributor] = 1
+        y.push({top_contributor: el.top_contributor, score: 1, repo_name: el.repo_name})
+      } else {
+        // y[el.top_contributor] = y[el.top_contributor] + 1
+        // y.push({top_contributor: el.top_contributor, score: y[el.score] + 1, repo_name: el.repo_name})
+        y[el.score] = y[el.score] + 1
+      }
+    })
+    console.log(y)
     
-    // let d = {}
-    // let {topcontributors} = this.state;
-    // for (var i = 0; i < topcontributors.length; i++) {
-    //   var datum = topcontributors[i];
-    //   if (!d[datum.top_contributor]) {
-    //       d[datum.top_contributor] = [];
-    //   }
-    //   d[datum.top_contributor].push(datum.repo_name);
-    // }
-
-    var stackos =[] 
-    const {topcontributors} = this.state;
+    let d = []
+    let {topcontributors} = this.state;
     for (var i = 0; i < topcontributors.length; i++) {
-      var stacko = <VictoryBar  data = {{x:topcontributors[i].top_contributor, y: 1}} key={topcontributors[i].top_contributor} />
-      stackos.push(stacko)
+      var datum = topcontributors[i];
+      if (!d[datum.top_contributor]) {
+          d[datum.top_contributor] = [];
+      }
+      d[datum.top_contributor].push(datum.repo_name);
     }
-    console.log(stackos)
-    // const stackdata = topcontributors.length ? (
-    //   topcontributors.map(
-    //     data => {
-    //       return (
-    //         <VictoryBar  data = {{x:data.top_contributor, y: 1}} />
-    //       )
-    //     }
-    //   )
-    // ): (
-    //   <div> 0 </div>
-    // )
-    // var stack_data = this.state.topcontributors.map(data => {
-    //   console.log(data)
-    //   var stack = <VictoryBar  data = {{x:data.top_contributor, y: 1}} key={data.top_contributor} />
-    // })
+    console.log(d)
 
-  //   var stacks = [] 
-  //   console.log(d)
-  //   for (var el of Object.keys(d)) {
-  //     let data = []
-  //     d[el].forEach(el => {
-  //       // console.log(el)
-  //       data.push({x: el, y: 1})   
-  //       // console.log(data)             
-  //     })
-  //     var stack = (<VictoryBar  data = {data} key={data.x} />)
-  //     stacks.push(stack)
-  //     console.log(stacks)
-  // }
+
 
         return(
           <Row>
@@ -105,23 +88,22 @@ class View3 extends React.Component{
             <Card style={{margin :20}}>
             <div>
               <h1 style={{textAlign:"center"}}>Top Contributors</h1>
-
-              <VictoryChart  width={400}>
-              {/* <VictoryGroup  style={{ data: { width: 15 } }}> */}
-                  <VictoryStack
-                  height={150}
-                  colorScale={"blue"}
-                  animate={{
-                    duration: 2000,
-                    onLoad: { duration: 1000 }
-                  }}
-                  >
-                  {/* {stackos} */}
-                  </VictoryStack>
-                {/* </VictoryGroup> */}
-              </VictoryChart>
-
-            
+                    <AreaChart
+                width={500}
+                height={400}
+                data={y}
+                margin={{
+                top: 10, right: 30, left: 0, bottom: 0,
+                }}
+            >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="top_contributor" />
+                <YAxis />
+                <Tooltip />
+                <Area type="monotone" dataKey="score" stackId="1" stroke="#8884d8" fill="#8884d8" />
+                {/* <Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" /> */}
+                {/* <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
+            </AreaChart>
             </div>
             </Card>
             </Col>

@@ -1,17 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { PureComponent } from 'react';
+import {
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,
+} from 'recharts';
 import { Card,Row,Col } from 'antd';
 import { Select } from 'antd';
-import { VictoryBar ,VictoryArea, VictoryChart, VictoryPolarAxis,
-    VictoryTheme,VictoryStack } from 'victory';
 
 // import './View1.css';
 
 const { Option } = Select;
 
-
-
-class View2 extends React.Component{
+const data = [
+  {"name": "Angad Sharma", 
+  "gravatar": "https://www.gravatar.com/avatar/5e8def242c2dd4eede4822fe2f8944b4?default=identicon", 
+  "commits":  1, 
+  "insertions":  53, 
+  "deletions": 0, 
+  "percentage-of-changes":  1.42 }, 
+  {"name":  "AshDarkfold", 
+  "gravatar": "https://www.gravatar.com/avatar/ecb219a7bb5a426385082e35bb2fc1fa?default=identicon",
+   "commits": 11, 
+   "insertions": 497, 
+   "deletions":  82, 
+   "percentage-of-changes":15.56
+  } ]
+   
+class View2 extends PureComponent{
 
   constructor(props){
     super(props);
@@ -80,11 +93,11 @@ class View2 extends React.Component{
     render(){
 
       const {repodata} = this.state;
-      console.log(repodata);
+      // console.log(repodata);
       var options = repodata.length ? (
         repodata.map(
           op => {
-            op = JSON.stringify(op)
+            // op = JSON.stringify(op)
             // console.log(op)
             return (
               <Option value={op.name} key={op.name}>{op.name}</Option>
@@ -93,28 +106,11 @@ class View2 extends React.Component{
           }
         )
       ) :(
-        <div><Option value="loading" key="loading"> Loading </Option></div>
+        <div></div>
       )
       // console.log(options)
-      const selectrepos =    
-          <Select
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Select a repository"
-            optionFilterProp="children"
-            onChange={this.onChange}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onSearch={this.onSearch}
-            filterOption={(input, option) =>
-              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-            >
-        <Option value="jack">Jack</Option>
-        <Option value="lucy">Lucy</Option>
-        <Option value="tom">Tom</Option>
-        {/* {options} */}
-    </Select>
+        
+
         return(
           <Row>
             <Col span={20}>
@@ -124,24 +120,38 @@ class View2 extends React.Component{
 
               
 
-            {selectrepos}
+              <Select
+                  showSearch
+                  style={{ width: 200 }}
+                  placeholder="Select a repository"
+                  optionFilterProp="children"
+                  onChange={this.onChange}
+                  onFocus={this.onFocus}
+                  onBlur={this.onBlur}
+                  onSearch={this.onSearch}
+                  filterOption={(input, option) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }
+                  >
+              <Option value="jack">Jack</Option>
+              <Option value="lucy">Lucy</Option>
+              <Option value="tom">Tom</Option>
 
-              <VictoryChart
-                theme={VictoryTheme.material}
-                domainPadding={10}
-                height={150}
-              >
-                <VictoryStack
-                  colorScale={["blue","cyan"]}
-                >
-                  <VictoryArea
-                    data={[{x: "Angad Sharma", y: 1}]}
-                  />
-                  <VictoryArea
-                    data={[{x: "L04DB4L4NC3R", y: 2}]}
-                  />
-                </VictoryStack>
-              </VictoryChart>
+              {/* {options} */}
+              </Select>
+
+              <LineChart width={500} height={300} data={data}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="commits" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="insertions" stroke="#82ca9d" />
+                <Line type="monotone" dataKey="deletions" stroke="#00d2d2" />
+
+              </LineChart>
+
             </div>
             </Card>
 
