@@ -11,7 +11,8 @@ class Test extends PureComponent{
         super(props);
         this.state = {
           access_token: localStorage.getItem('access_token'),
-          leaderboard: []
+          leaderboard: [],
+          activeIndex : 0
     
         }
       }
@@ -58,8 +59,16 @@ class Test extends PureComponent{
       return comparison;
     }
 
+    handleClick = (data, index) => {
+      this.setState({
+        activeIndex: index,
+      });
+      console.log(data)
+      window.open("https://github.com/"+ data.name, "_blank")
+    }
+
     render(){
-      const {leaderboard} = this.state;
+      const {leaderboard,activeIndex} = this.state;
 
 
 
@@ -77,16 +86,13 @@ class Test extends PureComponent{
                 margin={{
                   top: 20, right: 30, left: 20, bottom: 5,
                 }}
-                // ref={(ref) => (this.barChart = ref)}
-                // onClick = {this.handleClick(e)}
-                
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis  scale="pow"/>
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="score" fill="#8884d8" />
+                <Bar dataKey="score" fill="#8884d8" onClick={this.handleClick} />
                 {/* <Bar dataKey="uv" stackId="a" fill="#82ca9d" /> */}
               </BarChart>
               </Card>
