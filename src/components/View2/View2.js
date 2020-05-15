@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,ComposedChart,Bar
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,ComposedChart,Bar, ResponsiveContainer
 } from 'recharts';
 import { Card,Row,Col  } from 'antd';
 import  {Menu, Dropdown}  from 'antd';
@@ -96,7 +96,22 @@ export default class View2 extends PureComponent{
     }
   }
 
+  
+
     render(){
+
+      const CustomTooltip = ({ active, payload, label }) => {
+        if (active) {
+          return (
+            <div className="custom-tooltip">
+              <img src={payload[0].payload.gravatar} />
+            </div>
+          );
+        }
+      
+        return null;
+      };
+
       function onChange(value) {
         console.log(`selected ${value}`);
       }
@@ -176,19 +191,22 @@ export default class View2 extends PureComponent{
               </Select>
 
               <h1 style={{textAlign:"center"}}> project-ideas-v2-frontend </h1>
+              <ResponsiveContainer width="99%" height={500}>
               <LineChart width={600} height={300} data={data}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
                 <YAxis />
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />}/>
                 <Legend />
                 <Line type="monotone" dataKey="commits" stroke="#8884d8" activeDot={{ r: 8 }} />
                 <Line type="monotone" dataKey="insertions" stroke="#82ca9d" />
                 <Line type="monotone" dataKey="deletions" stroke="#00d2d2" />
 
               </LineChart>
+              </ResponsiveContainer>
 
+              <ResponsiveContainer width="99%" height={500}>
               <ComposedChart
                 width={500}
                 height={400}
@@ -205,6 +223,8 @@ export default class View2 extends PureComponent{
                 <Bar dataKey="modified_rows" barSize={20} fill="#82ca9d" />
                 <Line type="monotone" dataKey="modified_rows" stroke="#8884d8" />
               </ComposedChart>
+              </ResponsiveContainer>
+
 
             </div>
             </Card>

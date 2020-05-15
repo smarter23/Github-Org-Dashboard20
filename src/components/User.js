@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip
+  Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Tooltip,ResponsiveContainer
 } from 'recharts';
 
 import { Card,Row,Col } from 'antd';
@@ -44,6 +44,8 @@ class User extends PureComponent{
               <p>Followers: {this.props.user.followers}</p>
               <p>Following: {this.props.user.following}</p> */}
               <p>You've been on Github since - {this.props.user.created_at}</p>
+              <ResponsiveContainer width="99%" height={500}>
+
               <RadarChart cx={300} cy={250} outerRadius={150} width={540} height={500} data={data} margin={{ top: 5, right: 35, bottom: 5, left: 5 }}>
                 <PolarGrid />
                 <PolarAngleAxis dataKey="name" />
@@ -51,6 +53,7 @@ class User extends PureComponent{
                 <Tooltip />
                 <Radar name={this.props.user.name} dataKey="value" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
               </RadarChart>
+              </ResponsiveContainer>
 
               </Card>
             </Col>

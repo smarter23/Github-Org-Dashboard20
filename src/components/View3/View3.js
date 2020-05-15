@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip,
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
 } from 'recharts';
 import { Card,Row,Col } from 'antd';
 
@@ -99,6 +99,8 @@ class View3 extends PureComponent{
             <Card style={{margin :20}}>
             <div>
               <h1 style={{textAlign:"center"}}>Top Contributors</h1>
+              <ResponsiveContainer width="99%" height={500}>
+
                     <AreaChart
                 width={500}
                 height={400}
@@ -115,6 +117,7 @@ class View3 extends PureComponent{
                 {/* <Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" /> */}
                 {/* <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
             </AreaChart>
+            </ResponsiveContainer>
             </div>
             </Card>
             </Col>

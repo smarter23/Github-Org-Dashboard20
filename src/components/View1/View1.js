@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 
 import { Card,Row,Col } from 'antd';
@@ -63,7 +63,6 @@ class Test extends PureComponent{
       this.setState({
         activeIndex: index,
       });
-      console.log(data)
       window.open("https://github.com/"+ data.name, "_blank")
     }
 
@@ -79,6 +78,7 @@ class Test extends PureComponent{
             <Col span={18}>
               <Card style={{margin :20}}>
               <h1 style={{textAlign:"center"}}>Leaderboard</h1>
+              <ResponsiveContainer width="99%" height={500}>
               <BarChart
                 width={900}
                 height={500}
@@ -95,6 +95,7 @@ class Test extends PureComponent{
                 <Bar dataKey="score" fill="#8884d8" onClick={this.handleClick} />
                 {/* <Bar dataKey="uv" stackId="a" fill="#82ca9d" /> */}
               </BarChart>
+              </ResponsiveContainer>
               </Card>
             </Col>
             <Col span={3}></Col>
