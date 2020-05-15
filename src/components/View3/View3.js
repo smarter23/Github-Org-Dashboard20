@@ -80,10 +80,21 @@ class View3 extends PureComponent{
     }
     console.log(d)
 
+    let l = {}
+    
+    for (var i = 0; i < topcontributors.length; i++) {
+      var datum = topcontributors[i];
+      if (!l[datum.top_contributor]) {
+          l[datum.top_contributor] = [];
+      }
+      l[datum.top_contributor].push(datum.repo_name);
+    }
+
 
 
         return(
           <Row>
+            <Col span={3}></Col>
             <Col span={18}>
             <Card style={{margin :20}}>
             <div>
@@ -107,6 +118,7 @@ class View3 extends PureComponent{
             </div>
             </Card>
             </Col>
+            <Col span={3}></Col>
           </Row>
             
         )

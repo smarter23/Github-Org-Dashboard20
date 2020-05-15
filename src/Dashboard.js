@@ -7,7 +7,8 @@ import { Tabs } from 'antd';
 import View1 from './components/View1/View1';
 import View2 from './components/View2/View2';
 import View3 from './components/View3/View3';
-import Organisations from './components/Organisations';
+import User from './components/User';
+
 
 const { TabPane } = Tabs;
 
@@ -37,7 +38,8 @@ class Dashboard extends Component {
       orgs: '',
       user:'',
       avatar:'',
-      link:''
+      link:'',
+      userdetails: ''
     }
 }
   componentDidMount(){
@@ -81,7 +83,8 @@ class Dashboard extends Component {
         this.setState({
           user: resp.payload.login,
           avatar: resp.payload.avatar_url,
-          link : resp.payload.html_url
+          link : resp.payload.html_url,
+          userdetails: resp.payload
         })
         console.log(this.state)
       })
@@ -111,6 +114,7 @@ class Dashboard extends Component {
 
     render(){
       const token = localStorage.getItem('access_token');
+      const {userdetails} = this.state;
       const {orgs} = this.state
       console.log(orgs)
       const menu = orgs.length ? (
@@ -147,6 +151,7 @@ class Dashboard extends Component {
             </Header>
             <Layout>
               <Content style={{ padding: '50px' }}>
+                  <User token = {token} user={userdetails}/>
                   <View1 token = {token}/>
                   <View2 token = {token}/>
                   <View3 token = {token}/>

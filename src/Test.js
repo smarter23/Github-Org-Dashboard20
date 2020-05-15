@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 import { VictoryBoxPlot , VictoryChart, VictoryPolarAxis,
     VictoryTheme ,VictoryLegend, VictoryScatter,VictoryContainer, VictoryStack, VictoryBar, VictoryGroup,VictoryArea} from 'victory';
 import { Card,Row,Col } from 'antd';
+import  {Menu, Dropdown}  from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 
 const data = [
     {name: "Ubaid Usmani", score: 219295},
@@ -68,7 +70,25 @@ class Test extends PureComponent{
           console.log('clicked')
       }
     render(){
+      const menu = (
+        <Menu>
+          <Menu.Item key="0">
+            <a href="http://www.alipay.com/">1st menu item</a>
+          </Menu.Item>
+          <Menu.Item key="1">
+            <a href="http://www.taobao.com/">2nd menu item</a>
+          </Menu.Item>
+          <Menu.Divider />
+          <Menu.Item key="3">3rd menu item</Menu.Item>
+        </Menu>
+      );
         return (
+          <div>
+          <Dropdown overlay={menu} trigger={['click']}>
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            Click me <DownOutlined />
+          </a>
+        </Dropdown>
             <BarChart
               width={900}
               height={500}
@@ -87,6 +107,7 @@ class Test extends PureComponent{
               <Bar dataKey="score" fill="#8884d8" />
               {/* <Bar dataKey="uv" stackId="a" fill="#82ca9d" /> */}
             </BarChart>
+            </div>
           );
     }
 }
