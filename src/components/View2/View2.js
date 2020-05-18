@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,ComposedChart,Bar, ResponsiveContainer
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,ComposedChart,Bar, ResponsiveContainer,BarChart
 } from 'recharts';
 import { Card,Row,Col  } from 'antd';
 import  {Menu, Dropdown}  from 'antd';
@@ -41,6 +41,32 @@ const data = [
    
 const data1 = 
 [{"name": "2020W04", "authors": {"author": {"name": "Angad Sharma", "gravatar": {"$": "https://www.gravatar.com/avatar/5e8def242c2dd4eede4822fe2f8944b4?default=identicon"}, "work": {"$": "++++++++++++++++++++++++"}}}, "modified_rows":  53}, {"name": "2020W09", "authors": {"author": {"name":  "AshDarkfold", "gravatar": {"$": "https://www.gravatar.com/avatar/ecb219a7bb5a426385082e35bb2fc1fa?default=identicon"}, "work": {"$": "++++++++++++++++++++++++"}}}, "modified_rows":  328}, {"name": "2020W16", "authors": {"author": {"name":  "Ashutosh Kaushik", "gravatar": {"$": "https://www.gravatar.com/avatar/04d12d589b1665ed14be49a78de6c049?default=identicon"}, "work": {"$": "---+++++++++++++++++++++"}}}, "modified_rows": 1791}, {"name":  "2020W17", "authors": {"author": [{"name":  "AshDarkfold", "gravatar": {"$": "https://www.gravatar.com/avatar/ecb219a7bb5a426385082e35bb2fc1fa?default=identicon"}, "work": {"$": "-++++"}}, {"name": "Ashutosh Kaushik", "gravatar": {"$": "https://www.gravatar.com/avatar/04d12d589b1665ed14be49a78de6c049?default=identicon"}, "work": {"$": "-----++++++++++++++++++"}}]}, "modified_rows": 1064}]
+
+const data2 = [{
+  "name": "Angad Sharma",
+  "gravatar": "https://www.gravatar.com/avatar/5e8def242c2dd4eede4822fe2f8944b4?default=identicon",
+  "files": {
+    "file": {
+      "name": "README.md",
+      "rows": 53,
+    }
+  }
+}, {
+  "name": "AshDarkfold",
+  "gravatar": "https://www.gravatar.com/avatar/ecb219a7bb5a426385082e35bb2fc1fa?default=identicon",
+  "files": {
+    "file": [{
+      "name": "src/serviceWorker.js",
+      "rows": 106,
+    }, {
+      "name": "src/addIdea.js",
+      "rows": 70,
+    }, {
+      "name": "README.old.md",
+      "rows": 68,
+    }]
+  }
+}]
 export default class View2 extends PureComponent{
 
   constructor(props){
@@ -191,6 +217,8 @@ export default class View2 extends PureComponent{
               </Select>
 
               <h1 style={{textAlign:"center"}}> project-ideas-v2-frontend </h1>
+
+              {/* Commits Insertions Deletions */}
               <ResponsiveContainer width="99%" height={500}>
               <LineChart width={600} height={300} data={data}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
@@ -206,6 +234,7 @@ export default class View2 extends PureComponent{
               </LineChart>
               </ResponsiveContainer>
 
+                {/* Timeline */}
               <ResponsiveContainer width="99%" height={500}>
               <ComposedChart
                 width={500}
@@ -225,6 +254,23 @@ export default class View2 extends PureComponent{
               </ComposedChart>
               </ResponsiveContainer>
 
+              {/* Responsibility */}
+              <BarChart
+                width={500}
+                height={300}
+                data={data2}
+                margin={{
+                  top: 20, right: 30, left: 20, bottom: 5,
+                }}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                {/* <Bar dataKey="files" stackId="a" fill="#8884d8" /> */}
+                {/* <Bar dataKey="uv" stackId="a" fill="#82ca9d" /> */}
+              </BarChart>
 
             </div>
             </Card>
