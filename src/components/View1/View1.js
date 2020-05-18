@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+  BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Brush, ReferenceLine
 } from 'recharts';
 
 import { Card,Row,Col } from 'antd';
@@ -91,7 +91,9 @@ class Test extends PureComponent{
                 <XAxis dataKey="name" />
                 <YAxis  scale="pow"/>
                 <Tooltip />
-                <Legend />
+                <Legend verticalAlign="top" wrapperStyle={{ lineHeight: '40px' }}/>
+                <ReferenceLine y={0} stroke="#000" />
+                <Brush dataKey="name" height={30} stroke="#8884d8" />
                 <Bar dataKey="score" fill="#8884d8" onClick={this.handleClick} />
                 {/* <Bar dataKey="uv" stackId="a" fill="#82ca9d" /> */}
               </BarChart>

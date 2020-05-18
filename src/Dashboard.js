@@ -39,7 +39,8 @@ class Dashboard extends Component {
       user:'',
       avatar:'',
       link:'',
-      userdetails: ''
+      userdetails: '',
+      currentOrg: ''
     }
 }
   componentDidMount(){
@@ -102,8 +103,10 @@ class Dashboard extends Component {
   })
   .then(resp => {
     console.log(resp)
+    window.localStorage.setItem("org",1);
     this.setState({  
-      orgs: resp.payload.data.viewer.organizations.nodes
+      orgs: resp.payload.data.viewer.organizations.nodes,
+      currentOrg : resp.payload.data.viewer.organizations.nodes[0].login
     })
     console.log(this.state)
   })
@@ -121,7 +124,7 @@ class Dashboard extends Component {
         orgs.map(
           li => {
             return(
-              <Menu.Item key="1"  className = "orgs-title">
+              <Menu.Item key="1"  className = "orgs-title" onClick={() => this.setState({currentOrg: li.login})}>
                   {li.name}
               </Menu.Item>
             )
@@ -130,6 +133,7 @@ class Dashboard extends Component {
       ) : (
         <div></div>
       )
+      const {currentOrg} = this.state;
         return (
           <div>
             <Layout>
@@ -152,9 +156,9 @@ class Dashboard extends Component {
             <Layout>
               <Content style={{ padding: '50px' }}>
                   <User token = {token} user={userdetails}/>
-                  <View1 token = {token}/>
-                  <View2 token = {token}/>
-                  <View3 token = {token}/>
+                  <View1 token = {token} currentOrg = {currentOrg}/>
+                  <View2 token = {token} currentOrg = {currentOrg}/>
+                  <View3 token = {token} currentOrg = {currentOrg}/>
               </Content>
             </Layout>
 

@@ -80,15 +80,46 @@ class View3 extends PureComponent{
     }
     console.log(d)
 
-    let l = {}
-    
-    for (var i = 0; i < topcontributors.length; i++) {
-      var datum = topcontributors[i];
-      if (!l[datum.top_contributor]) {
-          l[datum.top_contributor] = [];
+    const result = topcontributors.reduce((acc, d) => {
+      const found = acc.find(a => a.top_contributor === d.top_contributor);
+      //const value = { name: d.name, val: d.value };
+      const value = { repo_name: d.repo_name }; // the element in data property
+      if (!found) {
+        //acc.push(...value);
+        acc.push({top_contributor:d.top_contributor, data: [value]}) // not found, so need to add data property
       }
-      l[datum.top_contributor].push(datum.repo_name);
-    }
+      else {
+        //acc.push({ name: d.name, data: [{ value: d.value }, { count: d.count }] });
+        found.data.push(value) // if found, that means data property exists, so just push new element to found.data.
+      }
+      return acc;
+    }, []);
+    console.log(result)
+
+    var c = result.map(el => {
+      var o = Object.assign({}, el);
+      o.count = el.data.length;
+      return o;
+  })
+
+  console.log(c)
+
+  //   result= topcontributors.reduce(function(r,a){
+  //     console.log(r,a)
+  //     r["top_contributor"] = r[a.top_contributor] || [];
+  //     r["top_contributor"].push(a)
+  //     return r;
+  // }, Object.create(null));
+
+  //   console.log(result)
+
+    // for (var i = 0; i < topcontributors.length; i++) {
+    //   var datum = topcontributors[i];
+    //   if (!(datum.top_contributor in l[i].top_contributor)) {
+    //       l[datum.top_contributor] = [];
+    //   }
+    //   l.push({name: datum.top_contributor ,repo: datum.repo_name});
+    // }
 
 
 
@@ -104,7 +135,7 @@ class View3 extends PureComponent{
                     <AreaChart
                 width={500}
                 height={400}
-                data={y}
+                data={c}
                 margin={{
                 top: 10, right: 30, left: 0, bottom: 0,
                 }}
@@ -113,7 +144,7 @@ class View3 extends PureComponent{
                 <XAxis dataKey="top_contributor" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="score" stackId="1" stroke="#8884d8" fill="#8884d8" />
+                <Area type="monotone" dataKey="count" stackId="1" stroke="#8884d8" fill="#8884d8" />
                 {/* <Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" /> */}
                 {/* <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
             </AreaChart>

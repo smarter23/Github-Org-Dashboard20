@@ -197,7 +197,7 @@ export default class View2 extends PureComponent{
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
                 <YAxis />
-                <Tooltip content={<CustomTooltip />}/>
+                <Tooltip/>
                 <Legend />
                 <Line type="monotone" dataKey="commits" stroke="#8884d8" activeDot={{ r: 8 }} />
                 <Line type="monotone" dataKey="insertions" stroke="#82ca9d" />
