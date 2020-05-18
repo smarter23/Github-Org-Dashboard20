@@ -121,7 +121,30 @@ class View3 extends PureComponent{
     //   l.push({name: datum.top_contributor ,repo: datum.repo_name});
     // }
 
+    const CustomTooltip = ({ active, payload, label }) => {
+      console.log(payload)
+      var v = []
+      if(payload){
+        if(payload.length != 0 ){
+          payload[0].payload.data.map(el =>{
+            v.push(el["repo_name"])
+          })
+        }
+      }
 
+
+      console.log("VVVVVV", v)
+      if (active) {
+        return (
+          <div className="custom-tooltip">
+            <p className="label">{`${label}: ${v}`} </p>
+          </div>
+        );
+      }
+    
+      return null;
+    };
+    
 
         return(
           <Row>
@@ -143,7 +166,7 @@ class View3 extends PureComponent{
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="top_contributor" />
                 <YAxis />
-                <Tooltip />
+                <Tooltip content={<CustomTooltip />} wrapperStyle={{backgroundColor:"#fff", padding:"3px"}}/>
                 <Area type="monotone" dataKey="count" stackId="1" stroke="#8884d8" fill="#8884d8" />
                 {/* <Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" /> */}
                 {/* <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}
