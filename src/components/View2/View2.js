@@ -74,8 +74,8 @@ export default class View2 extends PureComponent{
     this.state = {
       access_token: localStorage.getItem('access_token'),
       repodata: [],
-      repodetails: []
-
+      repodetails: [],
+      repotime:[]
     }
   }
 
@@ -115,7 +115,9 @@ export default class View2 extends PureComponent{
       .then(resp => {
         console.log(resp)
         this.setState({
-          repodetails : resp.gitinspector.changes.authors.author
+          repodetails : resp.gitinspector.changes.authors.author,
+          repotime: resp.gitinspector.timeline.periods.period
+
         })
       })
       .catch(err => console.log(err))
@@ -181,9 +183,15 @@ export default class View2 extends PureComponent{
           <Menu.Item key="3">3rd menu item</Menu.Item>
         </Menu>
       );
-      const {repodetails} = this.state
+      const {repodetails,repotime} = this.state
 
-    
+      let getC = (x)=>{return x.commits.$;}
+      let getI = (x)=>{return x.insertions.$;}
+      let getD = (x)=>{return x.deletions.$;}
+      let getN = (x)=>{return x.name.$;}
+      let getT = (x)=>{return x.modified_rows.$;}
+
+
         return(
           <Row>
             <Col span={3}></Col>
@@ -220,16 +228,16 @@ export default class View2 extends PureComponent{
 
               {/* Commits Insertions Deletions */}
               <ResponsiveContainer width="99%" height={500}>
-              <LineChart width={600} height={300} data={data}
+              <LineChart width={600} height={300} data={repodetails}
               margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" padding={{ left: 30, right: 30 }} />
+                <XAxis dataKey={getN} padding={{ left: 30, right: 30 }} />
                 <YAxis />
                 <Tooltip/>
                 <Legend />
-                <Line type="monotone" dataKey="commits" stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="insertions" stroke="#82ca9d" />
-                <Line type="monotone" dataKey="deletions" stroke="#00d2d2" />
+                <Line type="monotone" dataKey={getC} stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey={getI} stroke="#82ca9d" />
+                <Line type="monotone" dataKey={getD} stroke="#00d2d2" />
 
               </LineChart>
               </ResponsiveContainer>
@@ -239,18 +247,18 @@ export default class View2 extends PureComponent{
               <ComposedChart
                 width={500}
                 height={400}
-                data={data1}
+                data={repotime}
                 margin={{
                   top: 20, right: 20, bottom: 20, left: 20,
                 }}
               >
                 <CartesianGrid stroke="#f5f5f5" />
-                <XAxis dataKey="name" />
+                <XAxis dataKey={getN} />
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey="modified_rows" barSize={20} fill="#82ca9d" />
-                <Line type="monotone" dataKey="modified_rows" stroke="#8884d8" />
+                <Bar dataKey={getT} barSize={20} fill="#82ca9d" />
+                <Line type="monotone" dataKey={getT} stroke="#8884d8" />
               </ComposedChart>
               </ResponsiveContainer>
 
