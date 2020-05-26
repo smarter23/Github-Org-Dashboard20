@@ -132,12 +132,10 @@ class View3 extends PureComponent{
         }
       }
 
-
-      console.log("VVVVVV", v)
       if (active) {
         return (
           <div className="custom-tooltip">
-            <p className="label">{`${label}: ${v}`} </p>
+            <p className="label"><span style={{color:"#8884d8"}}>{`${label}`}</span>: <span style={{color:"#82ca9d"}}> {`${v}`} </span>  </p>
           </div>
         );
       }
@@ -166,7 +164,7 @@ class View3 extends PureComponent{
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="top_contributor" />
                 <YAxis />
-                <Tooltip content={<CustomTooltip />} wrapperStyle={{backgroundColor:"#fff", padding:"3px"}}/>
+                <Tooltip content={<CustomTooltip />} wrapperStyle={{backgroundColor:"#fff", padding:"3px",maxWidth:200}}/>
                 <Area type="monotone" dataKey="count" stackId="1" stroke="#8884d8" fill="#8884d8" />
                 {/* <Area type="monotone" dataKey="pv" stackId="1" stroke="#82ca9d" fill="#82ca9d" /> */}
                 {/* <Area type="monotone" dataKey="amt" stackId="1" stroke="#ffc658" fill="#ffc658" /> */}

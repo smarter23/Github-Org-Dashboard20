@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine,ComposedChart,Bar, ResponsiveContainer,BarChart
 } from 'recharts';
-import { Card,Row,Col  } from 'antd';
-import  {Menu, Dropdown}  from 'antd';
+import { Card,Row,Col,Menu, Dropdown,Select  } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
-import { Select } from 'antd';
+
 
 const { Option } = Select;
 const data = [
@@ -200,6 +199,8 @@ export default class View2 extends PureComponent{
             <div>
               <h1 style={{textAlign:"center"}}>Repo-vise contributions </h1>
 
+              {menu}
+
               {/* <Dropdown overlay={menu} trigger={['click']}>
                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                   Click me <DownOutlined />
@@ -263,7 +264,7 @@ export default class View2 extends PureComponent{
               </ResponsiveContainer>
 
               {/* Responsibility */}
-              <BarChart
+              {/* <BarChart
                 width={500}
                 height={300}
                 data={data2}
@@ -276,9 +277,9 @@ export default class View2 extends PureComponent{
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                {/* <Bar dataKey="files" stackId="a" fill="#8884d8" /> */}
-                {/* <Bar dataKey="uv" stackId="a" fill="#82ca9d" /> */}
-              </BarChart>
+                <Bar dataKey="files" stackId="a" fill="#8884d8" />
+                <Bar dataKey="uv" stackId="a" fill="#82ca9d" />
+              </BarChart> */}
 
             </div>
             </Card>
