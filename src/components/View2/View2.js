@@ -127,18 +127,6 @@ export default class View2 extends PureComponent{
 
     render(){
 
-      const CustomTooltip = ({ active, payload, label }) => {
-        if (active) {
-          return (
-            <div className="custom-tooltip">
-              <img src={payload[0].payload.gravatar} />
-            </div>
-          );
-        }
-      
-        return null;
-      };
-
       function onChange(value) {
         console.log(`selected ${value}`);
       }
@@ -199,7 +187,7 @@ export default class View2 extends PureComponent{
             <div>
               <h1 style={{textAlign:"center"}}>Repo-vise contributions </h1>
 
-              {menu}
+              {/* {menu} */}
 
               {/* <Dropdown overlay={menu} trigger={['click']}>
                 <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
@@ -207,7 +195,7 @@ export default class View2 extends PureComponent{
                 </a>
               </Dropdown> */}
               
-              <Select
+              {/* <Select
                 showSearch
                 style={{ width: 200 }}
                 placeholder="Select a repository"
@@ -223,7 +211,7 @@ export default class View2 extends PureComponent{
                 <Option value="jack">Jack</Option>
                 <Option value="lucy">Lucy</Option>
                 <Option value="tom">Tom</Option>
-              </Select>
+              </Select> */}
 
               <h1 style={{textAlign:"center"}}> project-ideas-v2-frontend </h1>
 
@@ -236,9 +224,9 @@ export default class View2 extends PureComponent{
                 <YAxis />
                 <Tooltip/>
                 <Legend />
-                <Line type="monotone" dataKey={getC} stroke="#8884d8" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey={getI} stroke="#82ca9d" />
-                <Line type="monotone" dataKey={getD} stroke="#00d2d2" />
+                <Line name="commits" type="monotone" dataKey={getC} stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line name="insertions" type="monotone" dataKey={getI} stroke="#82ca9d" />
+                <Line name="deletions" type="monotone" dataKey={getD} stroke="#00d2d2" />
 
               </LineChart>
               </ResponsiveContainer>
@@ -258,8 +246,8 @@ export default class View2 extends PureComponent{
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Bar dataKey={getT} barSize={20} fill="#82ca9d" />
-                <Line type="monotone" dataKey={getT} stroke="#8884d8" />
+                <Bar  name ="modified rows" dataKey={getT} barSize={20} fill="#82ca9d" />
+                <Line name ="modified rows" type="monotone" dataKey={getT} stroke="#8884d8" />
               </ComposedChart>
               </ResponsiveContainer>
 
